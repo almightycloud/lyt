@@ -1,0 +1,188 @@
+{
+  "entities": [
+    {
+      "name": "User",
+      "id": "User",
+      "lookupField": "username",
+      "exportable": true,
+      "fields": [
+        {
+          "id": 0,
+          "name": "id",
+          "type": "Autoincremented ID",
+          "editable": false,
+          "showInTable": false,
+          "required": true
+        },
+        {
+          "id": "username",
+          "name": "Username",
+          "type": "String",
+          "editable": false,
+          "showInTable": true,
+          "stringLength": 50,
+          "required": true
+        },
+        {
+          "id": "password",
+          "name": "Password",
+          "type": "Password",
+          "editable": false,
+          "showInTable": false,
+          "required": true
+        },
+        {
+          "id": "email",
+          "name": "E-mail",
+          "type": "String",
+          "editable": false,
+          "showInTable": true,
+          "stringLength": 50,
+          "required": true
+        },
+        {
+          "id": "roles",
+          "name": "Roles",
+          "type": "Enumeration",
+          "editable": false,
+          "showInTable": false,
+          "required": true
+        },
+        {
+          "id": "status",
+          "name": "Status",
+          "type": "Enumeration",
+          "editable": false,
+          "showInTable": true,
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "Product Example",
+      "id": 1000,
+      "lookupField": "productname",
+      "attachmentsEnabled": true,
+      "imageUploadEnabled": true,
+      "auditEnabled": true,
+      "aclEnabled": true,
+      "authorization": [
+        {
+          "roleId": 1,
+          "roleName": "Administrator",
+          "createPerm": 1,
+          "readPerm": 1,
+          "updatePerm": 1,
+          "deletePerm": 1,
+          "changeOwnerPerm": 1,
+          "ownerRoleEnabled": false
+        },
+        {
+          "roleId": 2,
+          "roleName": "Public",
+          "createPerm": "1",
+          "readPerm": 1,
+          "updatePerm": "1",
+          "deletePerm": "1",
+          "changeOwnerPerm": 1,
+          "ownerRoleEnabled": false
+        },
+        {
+          "roleId": "registered001",
+          "roleName": "Registered",
+          "createPerm": "1",
+          "readPerm": 0,
+          "updatePerm": "1",
+          "deletePerm": "1",
+          "changeOwnerPerm": 0,
+          "ownerRoleEnabled": false
+        }
+      ],
+      "fields": [
+        {
+          "id": 0,
+          "name": "id",
+          "type": "Autoincremented ID",
+          "editable": false,
+          "showInTable": false,
+          "required": true
+        },
+        {
+          "id": "productname",
+          "name": "Name",
+          "type": "String",
+          "editable": true,
+          "showInTable": true,
+          "stringLength": 50,
+          "required": true
+        },
+        {
+          "id": "price",
+          "name": "Price",
+          "type": "Decimal",
+          "editable": true,
+          "showInTable": true,
+          "integerLength": 5,
+          "fractionLength": 2,
+          "required": false
+        },
+        {
+          "id": "stock",
+          "name": "Stock",
+          "type": "Number",
+          "editable": true,
+          "showInTable": true,
+          "integerLength": 4,
+          "required": false
+        },
+        {
+          "id": "launch",
+          "name": "Launch Date",
+          "type": "Date",
+          "editable": true,
+          "showInTable": true,
+          "required": false
+        },
+        {
+          "id": "discontinued",
+          "name": "Discontinued",
+          "type": "Boolean",
+          "editable": true,
+          "showInTable": true,
+          "required": false
+        }
+      ]
+    }
+  ],
+  "appSettings": {
+    "appName": "LYT Development",
+    "package": "org.application",
+    "masterDetailsStyle": "2",
+    "dataListStyle": "2",
+    "pfTheme": "omega",
+    "runtarget": "as",
+    "layer": {
+      "rest": true
+    },
+    "manageRolesAndUsers": true,
+    "createRegistrationForm": true,
+    "roles": [
+      {
+        "id": 1,
+        "name": "Administrator",
+        "canBeDeleted": false
+      },
+      {
+        "id": 2,
+        "name": "Public",
+        "canBeDeleted": false
+      },
+      {
+        "id": "registered001",
+        "name": "Registered",
+        "canBeDeleted": false
+      }
+    ]
+  },
+  "guid": "e017d908-e3fa-4ddc-74e1-da84ec68b5a1"
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+<ui:composition template="/templates/layout.xhtml">
+  <ui:define name="content">
+
+    <h:form prependId="false" id="productExampleDataForm" onkeypress="if (event.keyCode == 13) {return false; }">
+
+        <p:dataGrid var="productExample" value="#{productExampleBean.productExampleList}"
+            columns="3" layout="grid"
+            rows="9" paginator="true" id="cars"
+            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="3,9,18,30">
+        
+            <f:facet name="header">
+                
+                <p:commandButton value="#{messages.create_new_productExample}" icon="ui-icon-plusthick"
+                        action="/pages/productExample/productExampleCreate?faces-redirect=true"
+                        rendered="#{productExampleBean.isPermitted('productExample:create')}"/>
+                
+            </f:facet>
+     
+            <p:panel>
+                
+                <div style="text-align: center; height: 100px">
+                    <o:graphicImage value="#{productExample.image.content}" dataURI="true"
+                        rendered="#{not empty productExample.image.content}" height="100%"/>
+                </div>
+                
+                <h:panelGrid columns="2">
+     
+                    <h:outputText value="#{messages.field_label_productExample_name}" />
+                    <h:outputText value="#{productExample.name}" />
+
+                    <h:outputText value="#{messages.field_label_productExample_price}" />
+                    <h:outputText value="#{productExample.price}"><f:convertNumber /></h:outputText>
+
+                    <h:outputText value="#{messages.field_label_productExample_stock}" />
+                    <h:outputText value="#{productExample.stock}" ><f:convertNumber /></h:outputText>
+
+                    <h:outputText value="#{messages.field_label_productExample_launchDate}" />
+                    <h:outputText value="#{productExample.launchDate}"><f:convertDateTime /></h:outputText>
+
+                    <h:outputText value="#{messages.field_label_productExample_discontinued}" />
+                    <h:outputText value="#{messages.field_label_productExample_discontinued_true}" rendered="#{productExample.discontinued}" />
+                    <h:outputText value="#{messages.field_label_productExample_discontinued_false}" rendered="#{not productExample.discontinued}" />
+
+                </h:panelGrid>
+                    
+                <h:panelGroup style="text-align: center;">
+                    
+                    <p:commandButton action="#{'/pages/productExample/productExampleView?faces-redirect=true&amp;id='.concat(productExample.id)}"
+                        icon="ui-icon-zoomin"
+                        title="#{messages.label_view}" />
+                    
+                    <p:commandButton action="#{'/pages/productExample/productExampleEdit?faces-redirect=true&amp;id='.concat(productExample.id)}"
+                        icon="ui-icon-pencil"
+                        resetValues="true"
+                        rendered="#{productExampleBean.isPermitted(productExample, 'productExample:update')}"
+                        title="#{messages.label_edit}" />
+                        
+                    <p:commandButton icon="ui-icon-copy" action="#{'/pages/productExample/productExampleAttachments?faces-redirect=true&amp;id='.concat(productExample.id)}" title="#{messages.label_attachments}" />
+                    
+                    <p:commandButton icon="ui-icon-close" rendered="#{productExampleBean.isPermitted(productExample, 'productExample:delete')}"
+                        oncomplete="PF('deleteProductExampleDialogWidget').show()"
+                        title="#{messages.label_delete}" >
+                        <f:setPropertyActionListener value="#{productExample}"
+                            target="#{productExampleBean.productExample}" />
+                    </p:commandButton>
+                </h:panelGroup>
+            </p:panel>
+     
+        </p:dataGrid>
+        
+    </h:form>
+
+    <p:confirmDialog id="deleteProductExampleDialog" widgetVar="deleteProductExampleDialogWidget"
+        rendered="#{productExampleBean.isPermitted(productExampleBean.productExample, 'productExample:delete')}" header="#{messages.label_confirm_deletion}"
+        severity="alarm">
+        <f:facet name="message"><h:outputText value="#{messages.label_delete_record}" escape="false"/></f:facet>
+        <p:outputPanel>
+          <h:form>
+            <div style="text-align: center; margin:10px">
+              <p:commandButton value="#{messages.label_yes}" action="#{productExampleBean.delete}" update=":productExampleDataForm :growlForm:growl" oncomplete="PF('deleteProductExampleDialogWidget').hide()" />
+              <p:commandButton value="#{messages.label_no}" onclick="PF('deleteProductExampleDialogWidget').hide()" type="button" />
+            </div>
+          </h:form>
+        </p:outputPanel>
+    </p:confirmDialog>
+    
+  </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+        <p:outputPanel styleClass="ui-fluid">
+
+            <p:panel id="productExampleImage" header="#{messages.label_image}" style="max-width:400px">
+                <o:graphicImage value="#{productExampleBean.uploadedImageContents}" dataURI="true"
+                    rendered="#{not empty productExampleBean.uploadedImageContents}" width="200px" />
+                <p:fileUpload mode="advanced" fileLimit="1"
+                    fileUploadListener="#{productExampleBean.handleImageUpload}" update="productExampleImage :growlForm:growl"
+                    cancelLabel="#{messages.upload_cancel}" uploadLabel="#{messages.upload_upload}" label="#{messages.upload_choose}"
+                    multiple="false" style="overflow:auto;width:380px"/>
+            </p:panel>
+            <p:panelGrid columns="3" columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2" layout="grid" style="max-width:400px">
+                <h:outputLabel value="#{messages.field_label_productExample_name}:" for="nameEditInput" />
+                <p:inputText value="#{productExampleBean.productExample.name}" id="nameEditInput" 
+                    label="#{messages.field_label_productExample_name}" />
+                <p:message for="nameEditInput" display="icon" />
+                <h:outputLabel value="#{messages.field_label_productExample_price}:" for="priceEditInput" />
+                <p:inputText value="#{productExampleBean.productExample.price}" id="priceEditInput" label="#{messages.field_label_productExample_price}" >
+                    <f:convertNumber />
+                </p:inputText>
+                <p:message for="priceEditInput" display="icon" />
+                <h:outputLabel value="#{messages.field_label_productExample_stock}:" for="stockEditInput" />
+                <p:inputText value="#{productExampleBean.productExample.stock}"  id="stockEditInput" 
+                    label="#{messages.field_label_productExample_stock}" />
+                <p:message for="stockEditInput" display="icon" />
+                <h:outputLabel value="#{messages.field_label_productExample_launchDate}:" for="launchDateEditInput" />
+                <p:calendar id="launchDateEditInput" navigator="true" value="#{productExampleBean.productExample.launchDate}" label="#{messages.field_label_productExample_launchDate}" />
+                <p:message for="launchDateEditInput" display="icon" />
+                <h:outputLabel value="#{messages.field_label_productExample_discontinued}:" for="discontinuedInput" />
+                <p:selectBooleanCheckbox value="#{productExampleBean.productExample.discontinued}" id="discontinuedInput" label="#{messages.field_label_productExample_discontinued}" />
+                <p:message for="discontinuedInput" display="icon" />
+            </p:panelGrid>
+        </p:outputPanel>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+    <p:outputPanel styleClass="ui-fluid" rendered="#{not productExampleBean.isPermitted(productExampleBean.productExample, 'productExample:read')}">
+        <h:outputText value="#{messages.access_denied}" />
+    </p:outputPanel>
+    
+    <p:panel header="#{messages.label_image}" style="max-width:400px" rendered="#{productExampleBean.isPermitted(productExampleBean.productExample, 'productExample:read')}">
+        <o:graphicImage value="#{productExampleBean.uploadedImageContents}" dataURI="true"
+            rendered="#{not empty productExampleBean.uploadedImageContents}" width="200px"/>
+    </p:panel>
+    
+    <h:panelGrid columns="2" styleClass="dialog" columnClasses="col1,col2" rendered="#{productExampleBean.isPermitted(productExampleBean.productExample, 'productExample:read')}">
+        
+        <h:outputText value="#{messages.field_label_productExample_name}:" />
+        <h:outputText value="#{productExampleBean.productExample.name}" />
+
+        <h:outputText value="#{messages.field_label_productExample_price}:" />
+        <h:outputText value="#{productExampleBean.productExample.price}" ><f:convertNumber /></h:outputText>
+
+        <h:outputText value="#{messages.field_label_productExample_stock}:" />
+        <h:outputText value="#{productExampleBean.productExample.stock}" />
+
+        <h:outputText value="#{messages.field_label_productExample_launchDate}:" />
+        <h:outputText value="#{productExampleBean.productExample.launchDate}" ><f:convertDateTime /></h:outputText>
+
+        <h:outputText value="#{messages.field_label_productExample_discontinued}:" />
+        <p:selectBooleanCheckbox disabled="true" value="#{productExampleBean.productExample.discontinued}" id="discontinuedInput" />
+
+        <h:outputText value="#{messages.audit_created}:" />
+        <h:panelGroup>
+            <h:outputText value="#{productExampleBean.productExample.createdAt}"><f:convertDateTime type="both" /></h:outputText>
+            <h:outputText value=", #{productExampleBean.productExample.createdBy}"/>
+        </h:panelGroup>
+        
+        <h:outputText value="#{messages.audit_modified}:" />
+        <h:panelGroup>
+            <h:outputText value="#{productExampleBean.productExample.modifiedAt}"><f:convertDateTime type="both" /></h:outputText>
+            <h:outputText value=", #{productExampleBean.productExample.modifiedBy}"/>
+        </h:panelGroup>
+        
+    </h:panelGrid>
+</html>

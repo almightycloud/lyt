@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/layout.xhtml">
+  <ui:define name="content">
+      
+      <p:panel id="map" style="height:-webkit-fill-available;">
+          
+      </p:panel>
+          
+          
+    <script>
+      var map;
+      function initMap() {
+          console.log('test');
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa7MIQofmUkAD2Co-0O4iZ4Wr50fla08M&amp;callback=initMap"
+    async="async" defer="defer"></script>
+  </ui:define>
+</ui:composition>
+    
+</html>
+
